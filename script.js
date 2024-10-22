@@ -689,3 +689,145 @@ class ChannelingHandler {
     console.log(`${itemName} 순회완료`);
   }
 }
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+@RestController
+public class ItemFilterController {
+
+    private static final String API_URL = "https://open.api.nexon.com/mabinogi/v1/npcshop/list";
+    private static final String API_KEY = "YOUR_API_KEY_HERE"; // 로컬 스토리지에서 가져올 수 있음
+
+    // NPC 상점 리스트
+    private static final List<NPCInfo> npcLocations = Arrays.asList(
+        new NPCInfo("티르코네일", "상인 네루"),
+        new NPCInfo("던바튼", "상인 누누"),
+        new NPCInfo("카브", "상인 아루"),
+        // 나머지 location 추가
+    );
+
+    // 주머니 API를 호출하여 데이터를 가져오는 함수
+    private List<ShopItem> fetchData(String npc, String server, String channel) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("accept", "application/json");
+        headers.set("x-nxopen-api-key", API_KEY);
+
+        String url = API_URL + "?npc_name=" + npc + "&server_name=" + server + "&channel=" + channel;
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+
+        List<ShopItem> itemList = new ArrayList<>();
+        if (response.getStatusCode().is2xxSuccessful()) {
+            JSONObject responseObject = new JSONObject(response.getBody());
+            JSONArray shopArray = responseObject.getJSONArray("shop");
+
+            // "주머니" 탭 필터링
+            for (int i = 0; i < shopArray.length(); i++) {
+                JSONObject shopObject = shopArray.getJSONObject(i);
+                if ("주머니".equals(shopObject.getString("tab_name"))) {
+                    JSONArray items = shopObject.getJSONArray("item");
+                    for (int j = 0; j < items.length(); j++) {
+                        JSONObject item = items.getJSONObject(j);
+                        String itemDisplayName = item.getString("item_display_name");
+                        String imageUrl = item.getString("image_url");
+
+                        Map<String, String> colors = extractColors(imageUrl);
+                        itemList.add(new ShopItem(itemDisplayName, colors, imageUrl));
+                    }
+                }
+            }
+        }
+        return itemList;
+    }
+
+    // 같은 헥스코드 색상을 가진 주머니 필터링
+    @GetMapping("/filter-same-hex")
+    public List<ShopItem> filterByHexCode(
+        @RequestParam("server") String server,
+        @RequestParam("channel") String channel,
+        @RequestParam("hex") String hexCode
+    ) {
+        List<ShopItem> allItems = new ArrayList<>();
+
+        // 모든 위치에 대해 데이터를 가져옴
+        for (NPCInfo npcInfo : npcLocations) {
+            List<ShopItem> npcItems = fetchData(npcInfo.getNpcName(), server, channel);
+            allItems.addAll(npcItems);
+        }
+
+        // 헥스 코드로 필터링
+        return allItems.stream()
+            .filter(item -> item.getColors().values().contains(hexCode.toLowerCase()))
+            .collect(Collectors.toList());
+    }
+
+    // URL에서 색상 값을 추출하는 함수
+    private Map<String, String> extractColors(String imageUrl) {
+        Map<String, String> colorMap = new HashMap<>();
+        if (imageUrl.contains("item_color=")) {
+            String encodedColors = imageUrl.split("item_color=")[1];
+            String decodedColors = java.net.URLDecoder.decode(encodedColors, StandardCharsets.UTF_8);
+            JSONObject colorJson = new JSONObject(decodedColors);
+
+            for (String key : colorJson.keySet()) {
+                colorMap.put(key, colorJson.getString(key));
+            }
+        }
+        return colorMap;
+    }
+
+    // Helper 클래스들
+    static class NPCInfo {
+        private String location;
+        private String npcName;
+
+        public NPCInfo(String location, String npcName) {
+            this.location = location;
+            this.npcName = npcName;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+
+        public String getNpcName() {
+            return npcName;
+        }
+    }
+
+    static class ShopItem {
+        private String itemName;
+        private Map<String, String> colors;
+        private String imageUrl;
+
+        public ShopItem(String itemName, Map<String, String> colors, String imageUrl) {
+            this.itemName = itemName;
+            this.colors = colors;
+            this.imageUrl = imageUrl;
+        }
+
+        public String getItemName() {
+            return itemName;
+        }
+
+        public Map<String, String> getColors() {
+            return colors;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+    }
+}
