@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FSX9R0HH1Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FSX9R0HH1Q');
+</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>주머니 상점 정보</title>
+    <style>
+      #content {
+        display: flex;
+        flex-direction: column; /* 세로 방향으로 배치 */
+      }
+
+      .table {
+        display: flex;
+        flex-direction: column; /* 세로 방향으로 배치 */
+        margin-bottom: 10px; /* 각 테이블 간의 간격 */
+
+        align-items: flex-start;
+      }
+
+      .row {
+        display: flex; /* 가로 방향으로 배치 */
+        flex-wrap: wrap; /* 줄 바꿈 활성화 */
+        justify-content: flex-start; /* 왼쪽 정렬 */
+      }
+
+      .cell {
+        align-items: center;
+        /* flex: 1 0 16.66%; 각 셀의 기본 너비를 16.66%로 설정 (6개가 100% 차지) */
+        box-sizing: border-box; /* 패딩과 테두리를 포함한 박스 모델 */
+        padding: 10px; /* 패딩 추가 */
+        width: 250px; /* 셀 최대 너비 설정 (반응형에 따라 조정 가능) */
+        border: 1px solid #4ac4e6;
+      }
+      .filterColor input {
+        width: 100px;
+      }
+      .filterColor p{
+        margin: 2px;
+      }
+
+      /* @media (max-width: 1200px) {
+        .cell {
+          flex: 1 0 33.33%; 
+        }
+      }
+
+      @media (max-width: 768px) {
+        .cell {
+          flex: 1 0 50%;
+        }
+      }
+
+      @media (max-width:480px) {
+        .cell {
+          flex: 1 0 100%; 
+        }
+      } */
+
+      #next_time {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .location {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      label {
+        padding-left: 10px;
+      }
+      .color-box {
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        margin-right: 5px;
+      }
+      .link {
+        margin-left: 10px;
+        font-size: 14px;
+      }
+      .link {
+        height: 100%;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4ac4e6;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+      .link:hover {
+        background-color: #ffffa8;
+        color: #1a1b23;
+      }
+      p {
+        color: gray;
+      }
+      .hidden {
+        display: none;
+      }
+      .tooltip {
+        position: relative;
+        display: inline-block;
+      }
+
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: -150%; /* 툴팁 위치 조정 */
+        left: 30%;
+
+        opacity: 0; /* 초기 투명도 설정 */
+        transition: opacity 0.3s; /* 애니메이션 효과 */
+        white-space: normal; /* 줄바꿈이 자연스럽게 되도록 설정 */
+        word-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 허용 */
+        pointer-events: none; /* 클릭 무시 */
+      }
+      .gyo {
+        left: 100% !important;
+      }
+      .cofi {
+        bottom: -50% !important;
+        left:0% !important;
+      }
+
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 0.7; /* 호버 시 투명도 변경 */
+      }
+      .container {
+        align-items: center;
+        display: flex;
+        flex-direction: column; /* 세로로 나열 */
+        box-sizing: border-box;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T47T3F7D"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+    <div style="display: flex; align-items: center">
+      <h1>주머니 상점 정보</h1>
+      <div class="tooltip">
+        <a
+          class="link"
+          href="https://x.com/maitipoppop/status/1846960785014325299?t=JW5W36VZNYAiJWvvFqHKbg&s=19"
+          target="_blank"
+          >트위터 문의하기?</a
+        >
+        <span class="tooltiptext"
+          >오류를 발견하셨거나 추가하면 좋을 것 같은 기능이 있으면 쪽지나
+          인용으로 알려주세요</span
+        >
+      </div>
+      <!-- <div class="tooltip">
+        <img src="cofi.png" />
+        <span class="tooltiptext cofi">cofi. 링크같은 건 없슴니다</span>
+      </div> -->
+    </div>
+    <p id="hiddenParagraph" style="display: none">
+      최신업데이트시간 241018 1913
+    </p>
+    <p id="next_time"></p>
+    <p id="jyujul">
+      API 키는 애플리케이션 등록하기 눌러서 원하는 이름으로 만든 후, 그 이름
+      클릭해서 들어가서 첫번째 API Key 복사해오시면 됩니다<br />
+      리셋됐을 때 바로 검색하면 오류나니까 좀 여유를 두고 검색하세요. 넥슨이
+      보통 10분 후에 데이터 준다고 했음. (Please wait until the data is ready
+      같은 오류 발생함)<br />
+      OPENAPI00007, Please try again later 오류는 하루에 쓸수있는 api 사용량을
+      다썼다는 뜻입니다.<br />
+      안감 이미지의 경우 비공식 팬페이지 api 를 불러와서 안감이 안보이고
+      이미지 못불러옴이 뜰 수 있습니다. 수정예정입니다.
+    </p>
+    <p>Data based on NEXON Open API</p>
+
+    <!-- 서버 선택 및 채널 입력 -->
+    <label for="serverSelect">서버 선택:</label>
+    <select id="serverSelect">
+      <option value="류트" selected>류트</option>
+      <option value="만돌린">만돌린</option>
+      <option value="하프">하프</option>
+      <option value="울프">울프</option>
+    </select>
+
+    <label for="channelInput">채널 번호:</label>
+    <input
+      type="text"
+      id="channelInput"
+      placeholder="채널 번호를 입력하세요"
+      value="1"
+      style="width: 30px"
+    />
+
+    <label for="apiKeyInput">API 키:</label>
+    <input
+      type="text"
+      id="apiKeyInput"
+      placeholder="API 키를 입력하세요"
+      value=""
+      style="width: 750px"
+    />
+    <!-- 초기값 설정 -->
+    <div class="tooltip">
+      <button id="fetchButton" class="link">검색</button>
+      <span class="tooltiptext">API 키 입력 안하시면 검색이 안됩니다</span>
+    </div>
+    <div class="tooltip">
+      <label>
+        <input type="checkbox" id="autoFetchCheckbox" /> 자동 실행
+      </label>
+      <span class="tooltiptext"
+        >체크해놓으면 너무 빨리 불러서 오류 발생하고 api 횟수만 소모하는 것을
+        방지하기 위해 초기화 10분 후 자동실행됩니다</span
+      >
+    </div>
+    <div class="tooltip">
+      <a
+        class="link"
+        href="https://openapi.nexon.com/ko/my-application/"
+        target="_blank"
+        >API 키 생성하러가기 click!</a
+      >
+      <span class="tooltiptext">넥슨api사이트로 이동합니다.</span>
+    </div>
+    <hr />
+    <div class="filterColor">
+      <label for="anywhereColor">전체 RGB :</label>
+      <input type="text" id="anywhereColor" placeholder="예: 0, 255, 0" />
+
+      <label for="outerColor">겉감 RGB :</label>
+      <input type="text" id="outerColor" placeholder="예: 255. 0. 0" />
+      <label for="romanColor">로마자 RGB :</label>
+      <input type="text" id="romanColor" placeholder="예: 0/255/0" />
+
+      <label for="innerColor">안감 RGB :</label>
+      <input type="text" id="innerColor" placeholder="예: 0/0//255" />
+
+      <label for="toleranceInput">오차 범위:</label>
+      <input
+        type="text"
+        id="toleranceInput"
+        placeholder="오차 범위"
+        value="10"
+        style="width: 50px"
+      />
+      <div class="tooltip">
+        <button id="filterButton" class="link">필터링</button>
+        <span class="tooltiptext"
+          >검색 후 필터링해주세요. 겉감,로마자,안감의 기준은 색순서 1,2,3
+          입니다</span
+        >
+      </div>
+      <div class="tooltip">
+        <label>
+          <input type="checkbox" id="autoFilter" style="width: auto" /><span
+            id="autoFilterText"
+            >자동 필터링</span
+          >
+        </label>
+        <span class="tooltiptext"
+          >체크했을 때 검색 후 자동으로 필터링됩니다</span
+        >
+      </div>
+      <br/><p> 필터링 검색값은 숫자 3개만 넣으면 구분을 어떻게 하든 상관없습니다. 예시 - (0,0,0) | 0/0/0 | 0.0.0 | 0 0 0 </p>
+    </div>
+
+    <br />
+    <hr />
+    <div class="tooltip">
+      <label for="locationSelect">교역소 선택:</label>
+      <select id="locationSelect">
+        <option value="전체" selected>전체</option>
+      </select>
+      <span class="tooltiptext gyo">특정 교역소만 선택해서 볼 수 있습니다</span>
+    </div>
+
+    <div id="content"></div>
+    <!-- <script src="variables.js" type="module"></script> -->
+    <!-- <script src="channeling.js" type="module"></script> -->
+    <script src="script.js"></script>
+
+    <!-- JavaScript 파일 연결 -->
+  </body>
+</html>
